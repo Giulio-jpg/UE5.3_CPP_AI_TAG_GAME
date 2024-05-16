@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\giuli\\onedrive\\documenti\\github\\ue5.3_cpp_ai_tag_game\\taggame\\source\\taggame\\taggame.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\giuli\\onedrive\\documenti\\github\\ue5.3_cpp_ai_tag_game\\taggame\\intermediate\\build\\win64\\x64\\taggameeditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\giuli\\onedrive\\documenti\\github\\ue5.3_cpp_ai_tag_game\\taggame\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\taggame\\definitions.taggame.h",
+            "c:\\users\\giuli\\onedrive\\documenti\\github\\ue5.3_cpp_ai_tag_game\\taggame\\source\\taggame\\taggame.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
