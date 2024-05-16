@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeTagGame_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x663A45D5,
-				0x39C90E42,
+				0x8BB826B0,
+				0xA34DFD5F,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_TagGame.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_TagGame.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TagGame(Z_Construct_UPackage__Script_TagGame, TEXT("/Script/TagGame"), Z_Registration_Info_UPackage__Script_TagGame, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x663A45D5, 0x39C90E42));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TagGame(Z_Construct_UPackage__Script_TagGame, TEXT("/Script/TagGame"), Z_Registration_Info_UPackage__Script_TagGame, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x8BB826B0, 0xA34DFD5F));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

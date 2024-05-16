@@ -1,0 +1,36 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/Blueprints/BP_Ball.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/5/6X/41RPEF9YTTZ3KMQIYG0F7X.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/7Q/KIYUZ5SB2C8P5PUWYTY4AA.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/89/4CKP7O8P259U3UK7P03H4Y.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/2/AH/HB8A6EPDDKIR628U54IJF7.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/7C/36O0WOC59AJ7NHBKAS4RGR.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/C/N8/ULHLU3C85415SJU85TBPDF.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/1/IU/9Q38NW6OD4WH3R896OGV08.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/C/93/N1F2FP22RDZVQJBVKAQMHA.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/Blueprints/BP_EnemyPCharacter.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/C/LS/R43WASYLLSN1GHDCJ683QW.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/HE/Y1I7ND4W5JWV3WUYV76EY4.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/0/G7/D7YVEJ8RCMOSHDJFM34O3S.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/UL/I1R1JLMOZW5H896A708FTO.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/3/D4/CJB1IH36EBMZIQEXUV3P2Z.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/8/X5/W3MC1BS7KEVDYL53XZJLIE.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/QU/LJMNL9SHZIDYS08K6YGSOM.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/D/JZ/5P969LP9944RZH0H0XENJK.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/2/8H/AL8W04I88F3ZJ24ORC9EVN.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/RO/19PMXWCOVNDS7K8OMTR2GF.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/2/H9/YMW57XVXW7CE8V7PQK5Y8T.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/A/7T/MW0C9ZKNBX2ZY9IJCYHDZG.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/8/MP/CY2ZDK87SRL5XU2OKIRLSC.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/4/2T/YQCHXQOVJ8MX9MNKPHIELI.uasset",
+				"C:/Users/giuli/OneDrive/Documenti/GitHub/UE5.3_CPP_AI_TAG_GAME/TagGame/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/B/9M/HA4IJONNDZP5OBKFCV02JI.uasset"
+			]
+		}
+	]
+}
