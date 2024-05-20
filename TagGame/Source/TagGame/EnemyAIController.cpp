@@ -219,8 +219,6 @@ void AEnemyAIController::BeginPlay()
 			{
 				return Patrol;
 			}
-	
-			
 		}
 	);
 
