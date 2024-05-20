@@ -17,8 +17,8 @@ AEnemyAIController::AEnemyAIController()
 	PerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception"));
 	Sight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight"));
 
-	Sight->SightRadius = 600.f;
-	Sight->LoseSightRadius = 700.f;
+	Sight->SightRadius = 700.f;
+	Sight->LoseSightRadius = 800.f;
 	Sight->PeripheralVisionAngleDegrees = 90.f;
 	Sight->DetectionByAffiliation.bDetectEnemies = true;
 	Sight->DetectionByAffiliation.bDetectNeutrals = true;
@@ -215,10 +215,9 @@ void AEnemyAIController::BeginPlay()
 			{
 				return Wait;
 			}
-			else
-			{
-				return Patrol;
-			}
+			
+			return nullptr;
+			
 		}
 	);
 
@@ -238,7 +237,7 @@ void AEnemyAIController::BeginPlay()
 				return GoToPlayer;
 			}
 
-			return Wait;
+			return nullptr;
 		}
 	);
 
