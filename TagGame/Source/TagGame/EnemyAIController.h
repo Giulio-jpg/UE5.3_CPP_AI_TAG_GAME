@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "Ball.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
+#include "Perception/AIPerceptionTypes.h"
 #include "EnemyAIController.generated.h"
 
 
@@ -17,7 +21,9 @@ struct FAIVState : public TSharedFromThis<FAIVState>
 		Tick = nullptr;
 	}
 
-	FAIVState(TFunction<void(AAIController*)> InEnter = nullptr, TFunction<void(AAIController*)> InExit = nullptr, TFunction<TSharedPtr<FAIVState>(AAIController*, const float)> InTick = nullptr)
+	FAIVState(TFunction<void(AAIController*, UBlackboardComponent*)> InEnter = nullptr,
+			  TFunction<void(AAIController*, UBlackboardComponent*)> InExit = nullptr,
+		      TFunction<TSharedPtr<FAIVState>(AAIController*, UBlackboardComponent*, const float)> InTick = nullptr)
 	{
 		Enter = InEnter;
 		Exit = InExit;
@@ -29,32 +35,32 @@ struct FAIVState : public TSharedFromThis<FAIVState>
 	FAIVState(FAIVState&& Other) = delete;
 	FAIVState& operator=(FAIVState&& Other) = delete;
 
-	void CallEnter(AAIController* AIController)
+	void CallEnter(AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 	{
 		if (Enter)
 		{
-			Enter(AIController);
+			Enter(AIController, BlackboardComponent);
 		}
 	}
 
-	void CallExit(AAIController* AIController)
+	void CallExit(AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 	{
 		if (Exit)
 		{
-			Exit(AIController);
+			Exit(AIController, BlackboardComponent);
 		}
 	}
 
-	TSharedPtr<FAIVState> CallTick(AAIController* AIController, const float DeltaTime)
+	TSharedPtr<FAIVState> CallTick(AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime)
 	{
 		if (Tick)
 		{
-			TSharedPtr<FAIVState> NewState = Tick(AIController, DeltaTime);
+			TSharedPtr<FAIVState> NewState = Tick(AIController, BlackboardComponent, DeltaTime);
 
 			if (NewState != nullptr && NewState != AsShared())
 			{
-				CallExit(AIController);
-				NewState->CallEnter(AIController);
+				CallExit(AIController, BlackboardComponent);
+				NewState->CallEnter(AIController, BlackboardComponent);
 				return NewState;
 			}
 		}
@@ -64,13 +70,12 @@ struct FAIVState : public TSharedFromThis<FAIVState>
 
 
 
-private:
-	TFunction<void(AAIController*)> Enter;
-	TFunction<void(AAIController*)> Exit;
-	TFunction<TSharedPtr<FAIVState>(AAIController*, const float)> Tick;
+protected:
+	TFunction<void(AAIController*, UBlackboardComponent*)> Enter;
+	TFunction<void(AAIController*, UBlackboardComponent*)> Exit;
+	TFunction<TSharedPtr<FAIVState>(AAIController*, UBlackboardComponent*, const float)> Tick;
 
 };
-
 
 
 
@@ -80,20 +85,33 @@ class TAGGAME_API AEnemyAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+	AEnemyAIController();
+	void StartBehaviour();
+
+	UFUNCTION()
+	void OnPerception(AActor* InActor, FAIStimulus InStimulus);
+
+	UFUNCTION()
+	void OnTimerElapsed();
 
 protected:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
 
-
 	TSharedPtr<FAIVState> CurrentState;
 
-	// 1 TSharedPtr<FAIVState> per ogni stato che dovremo gestire
 	TSharedPtr<FAIVState> GoToPlayer;
 	TSharedPtr<FAIVState> GoToBall;
 	TSharedPtr<FAIVState> GrabBall;
 	TSharedPtr<FAIVState> SearchForBall;
+	TSharedPtr<FAIVState> SearchForReacheablePoint;
+	TSharedPtr<FAIVState> Patrol;
+	TSharedPtr<FAIVState> Wait;
 
-	// questo si potrebbe fare con la blackboard
-	ABall* BestBall;
+	FName TargetBallKey;
+	FName RandomLocationKey;
+	FName PlayerSeenKey;
+
+	UAISenseConfig_Sight* Sight;
 };

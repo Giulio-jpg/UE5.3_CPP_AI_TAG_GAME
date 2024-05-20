@@ -4,6 +4,7 @@
 #include "TagGameCharacter.h"
 #include "Engine/World.h"	
 #include "EngineUtils.h"
+#include "EnemyAIController.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -17,10 +18,6 @@ ATagGameGameMode::ATagGameGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
-
-
-
-
 }
 
 void ATagGameGameMode::BeginPlay()
@@ -28,7 +25,6 @@ void ATagGameGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	ResetMatch();
-
 }
 
 void ATagGameGameMode::Tick(float DeltaTime)
@@ -37,14 +33,14 @@ void ATagGameGameMode::Tick(float DeltaTime)
 
 	for (int32 i = 0; i < GameBalls.Num(); i++)
 	{
-		if (GameBalls[i]->GetAttachParentActor() != GetWorld()->GetFirstPlayerController()->GetPawn())
+	    if (GameBalls[i]->GetAttachParentActor() != GetWorld()->GetFirstPlayerController()->GetPawn())
 		{
 			return;
 		}
 	}
 
 	ResetMatch();
-	return;
+	ResetEnemiesBehaviour();
 }
 
 void ATagGameGameMode::ResetMatch()
@@ -61,7 +57,7 @@ void ATagGameGameMode::ResetMatch()
 	{
 		if (It->GetAttachParentActor())
 		{
-			It->AttachToActor(nullptr, FAttachmentTransformRules::KeepWorldTransform);
+			It->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 		}
 
 		GameBalls.Add(*It);
@@ -76,6 +72,16 @@ void ATagGameGameMode::ResetMatch()
 		RandomTargetPoints.RemoveAt(RandomTargetIndex);
 	}
 }
+
+void ATagGameGameMode::ResetEnemiesBehaviour()
+{
+	for (TActorIterator<AEnemyAIController> It(GetWorld()); It; ++It)
+	{
+		It->StartBehaviour();
+	}
+}
+
+
 
 const TArray<ABall*>& ATagGameGameMode::GetBalls() const
 {

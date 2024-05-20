@@ -22,7 +22,10 @@ public:
 
 protected:
 	void ResetMatch();
+	void ResetEnemiesBehaviour();
 	TArray<ATargetPoint*> TargetPoints;
+	
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	TArray<ABall*> GameBalls;
 };
 

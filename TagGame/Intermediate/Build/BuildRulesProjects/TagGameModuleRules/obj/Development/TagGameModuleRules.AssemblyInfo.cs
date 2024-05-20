@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TagGameModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f08d5aaa013a6fa1555d429b843a7af99673329")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc98654135009bd96f6c66be87a4989737d9871c")]
 [assembly: System.Reflection.AssemblyProductAttribute("TagGameModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TagGameModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
