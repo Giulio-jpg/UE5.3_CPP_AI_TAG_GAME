@@ -105,12 +105,12 @@ protected:
 	TSharedPtr<FAIVState> GoToBall;
 	TSharedPtr<FAIVState> GrabBall;
 	TSharedPtr<FAIVState> SearchForBall;
-	TSharedPtr<FAIVState> SearchForReacheablePoint;
+	TSharedPtr<FAIVState> SearchForPatrolPoint;
 	TSharedPtr<FAIVState> Patrol;
 	TSharedPtr<FAIVState> Wait;
 
 	FName TargetBallKey;
-	FName RandomLocationKey;
+	FName PatrolLocationKey;
 	FName PlayerSeenKey;
 
 	UAISenseConfig_Sight* Sight;

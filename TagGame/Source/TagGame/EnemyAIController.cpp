@@ -6,7 +6,6 @@
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Bool.h"
 #include "Engine/EngineTypes.h"
-#include "GameFramework/Character.h"
 #include "Math/Vector.h"
 #include "AI/Navigation/NavigationTypes.h"
 #include "Navigation/PathFollowingComponent.h"
@@ -37,11 +36,11 @@ void AEnemyAIController::BeginPlay()
 	PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AEnemyAIController::OnPerception);
 
 	TargetBallKey = TEXT("BestBall");
-	RandomLocationKey = TEXT("RandomPoint");
+	PatrolLocationKey = TEXT("RandomPoint");
 	PlayerSeenKey = TEXT("IsPlayerInSight");
 	UBlackboardData* BlackboardAsset = NewObject<UBlackboardData>();
 	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Object>(TargetBallKey);
-	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Vector>(RandomLocationKey);
+	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Vector>(PatrolLocationKey);
 	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Bool>(PlayerSeenKey);
 	UBlackboardComponent* BlackboardTemp = Blackboard.Get();
 	UseBlackboard(BlackboardAsset, BlackboardTemp);
@@ -175,18 +174,18 @@ void AEnemyAIController::BeginPlay()
 			TargetBall->AttachToActor(AIController->GetPawn(), FAttachmentTransformRules::KeepRelativeTransform);
 			TargetBall->SetActorRelativeLocation(FVector(0, 0, 0));
 
-			return SearchForReacheablePoint;
+			return SearchForPatrolPoint;
 		}
 	);
 
-	SearchForReacheablePoint = MakeShared <FAIVState>(
+	SearchForPatrolPoint = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
 			FNavLocation TargetLocation;
 			UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetCurrent(GetWorld());
 			NavSystem->GetRandomReachablePointInRadius(AIController->GetPawn()->GetActorLocation(), 2000, TargetLocation);
 			//NavSystem->GetRandomPoint(TargetLocation);
-			BlackboardComponent->SetValueAsVector(RandomLocationKey, TargetLocation);
+			BlackboardComponent->SetValueAsVector(PatrolLocationKey, TargetLocation);
 		},
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
@@ -200,7 +199,7 @@ void AEnemyAIController::BeginPlay()
 	Patrol = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
-			AIController->MoveToLocation(BlackboardComponent->GetValueAsVector(RandomLocationKey), 40.f);
+			AIController->MoveToLocation(BlackboardComponent->GetValueAsVector(PatrolLocationKey), 20.f);
 		},
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
@@ -210,12 +209,11 @@ void AEnemyAIController::BeginPlay()
 				return GoToPlayer;
 			}
 	
-			float dist = FVector::Distance(AIController->GetPawn()->GetActorLocation(), BlackboardComponent->GetValueAsVector(RandomLocationKey));
+			float dist = FVector::Distance(AIController->GetPawn()->GetActorLocation(), BlackboardComponent->GetValueAsVector(PatrolLocationKey));
 	
-			if (dist <= 150.f)
+			if (dist <= 100.f)
 			{
 				return Wait;
-				//return SearchForReacheablePoint;
 			}
 			else
 			{
@@ -275,14 +273,13 @@ void AEnemyAIController::OnPerception(AActor* InActor, FAIStimulus InStimulus)
 	{
 		Blackboard->SetValueAsBool(PlayerSeenKey, false);
 	}
-	
 }
 
 void AEnemyAIController::OnTimerElapsed()
 {	
 	if (CurrentState == Wait)
 	{
-		CurrentState = SearchForReacheablePoint;
+		CurrentState = SearchForPatrolPoint;
 		CurrentState->CallEnter(this, Blackboard);
 	}
 }
