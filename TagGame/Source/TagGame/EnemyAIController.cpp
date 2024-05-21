@@ -254,7 +254,10 @@ void AEnemyAIController::StartBehaviour()
 
 void AEnemyAIController::OnPerception(AActor* InActor, FAIStimulus InStimulus)
 {
-	if (InActor->ActorHasTag(TEXT("Player")))
+	UBlueprint* PlayerBlueprint = LoadObject<UBlueprint>(nullptr, TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.BP_ThirdPersonCharacter"));
+	UClass* PlayerClass = PlayerBlueprint->GeneratedClass;
+	
+	if (InActor->IsA(PlayerClass))
 	{
 		Blackboard->SetValueAsBool(PlayerSeenKey, InStimulus.WasSuccessfullySensed());
 	}
