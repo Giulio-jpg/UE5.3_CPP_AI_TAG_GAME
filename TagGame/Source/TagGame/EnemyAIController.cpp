@@ -56,7 +56,7 @@ void AEnemyAIController::BeginPlay()
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
 		{
-			EPathFollowingStatus::Type State = AIController->GetMoveStatus();
+			const EPathFollowingStatus::Type State = AIController->GetMoveStatus();
 
 			if (State == EPathFollowingStatus::Moving)
 			{
@@ -128,7 +128,7 @@ void AEnemyAIController::BeginPlay()
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
 		{
-			EPathFollowingStatus::Type State = AIController->GetMoveStatus();
+			const EPathFollowingStatus::Type State = AIController->GetMoveStatus();
 
 			if (State == EPathFollowingStatus::Moving)
 			{
