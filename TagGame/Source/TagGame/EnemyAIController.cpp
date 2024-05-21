@@ -81,7 +81,7 @@ void AEnemyAIController::BeginPlay()
 	SearchForBall = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
-			ATagGameGameMode* AIGameMode = Cast<ATagGameGameMode>(AIController->GetWorld()->GetAuthGameMode());
+			const ATagGameGameMode* AIGameMode = Cast<ATagGameGameMode>(AIController->GetWorld()->GetAuthGameMode());
 			const TArray<ABall*>& BallsList = AIGameMode->GetBalls();
 
 			ABall* NearestBall = nullptr;
@@ -94,11 +94,6 @@ void AEnemyAIController::BeginPlay()
 						FVector::Distance(AIController->GetPawn()->GetActorLocation(), NearestBall->GetActorLocation())))
 				{
 					NearestBall = BallsList[i];
-				}
-
-				if (i == BallsList.Num() - 1 && !NearestBall)
-				{
-					UE_LOG(LogTemp, Warning, TEXT("NESSUNA PALLA TROVATA"));
 				}
 			}
 			
@@ -137,7 +132,7 @@ void AEnemyAIController::BeginPlay()
 
 			if (State == EPathFollowingStatus::Moving)
 			{
-				AActor* TargetBall = Cast<AActor>(BlackboardComponent->GetValueAsObject(TargetBallKey));
+				const AActor* TargetBall = Cast<AActor>(BlackboardComponent->GetValueAsObject(TargetBallKey));
 				if (TargetBall && TargetBall->GetAttachParentActor())
 				{
 					return SearchForBall;
@@ -155,7 +150,7 @@ void AEnemyAIController::BeginPlay()
 	GrabBall = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
-			AActor* TargetBall = Cast<AActor>(BlackboardComponent->GetValueAsObject(TargetBallKey));
+			const AActor* TargetBall = Cast<AActor>(BlackboardComponent->GetValueAsObject(TargetBallKey));
 			if (TargetBall && TargetBall->GetAttachParentActor())
 			{
 				BlackboardComponent->SetValueAsObject(TEXT("BestBall"), nullptr);
@@ -184,7 +179,6 @@ void AEnemyAIController::BeginPlay()
 			FNavLocation TargetLocation;
 			UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetCurrent(GetWorld());
 			NavSystem->GetRandomReachablePointInRadius(AIController->GetPawn()->GetActorLocation(), 2000, TargetLocation);
-			//NavSystem->GetRandomPoint(TargetLocation);
 			BlackboardComponent->SetValueAsVector(PatrolLocationKey, TargetLocation);
 		},
 		nullptr,
@@ -209,15 +203,13 @@ void AEnemyAIController::BeginPlay()
 				return GoToPlayer;
 			}
 	
-			float dist = FVector::Distance(AIController->GetPawn()->GetActorLocation(), BlackboardComponent->GetValueAsVector(PatrolLocationKey));
-	
-			if (dist <= 100.f)
+			if (FVector::Distance(AIController->GetPawn()->GetActorLocation(), 
+				BlackboardComponent->GetValueAsVector(PatrolLocationKey)) <= 100.f)
 			{
 				return Wait;
 			}
 			
 			return nullptr;
-			
 		}
 	);
 
