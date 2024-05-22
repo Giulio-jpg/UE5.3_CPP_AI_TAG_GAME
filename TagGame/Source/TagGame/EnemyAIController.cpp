@@ -26,7 +26,6 @@ AEnemyAIController::AEnemyAIController()
 
 	PerceptionComponent->ConfigureSense(*Sight);
 	PerceptionComponent->SetDominantSense(Sight->GetSenseImplementation());
-
 }
 
 void AEnemyAIController::BeginPlay()
@@ -178,7 +177,7 @@ void AEnemyAIController::BeginPlay()
 		{
 			FNavLocation TargetLocation;
 			UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetCurrent(GetWorld());
-			NavSystem->GetRandomReachablePointInRadius(AIController->GetPawn()->GetActorLocation(), 2000, TargetLocation);
+			NavSystem->GetRandomReachablePointInRadius(AIController->GetPawn()->GetActorLocation(), 2000.f, TargetLocation);
 			BlackboardComponent->SetValueAsVector(PatrolLocationKey, TargetLocation);
 		},
 		nullptr,
@@ -193,7 +192,7 @@ void AEnemyAIController::BeginPlay()
 	Patrol = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
-			AIController->MoveToLocation(BlackboardComponent->GetValueAsVector(PatrolLocationKey), 20.f);
+			AIController->MoveToLocation(BlackboardComponent->GetValueAsVector(PatrolLocationKey));
 		},
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
