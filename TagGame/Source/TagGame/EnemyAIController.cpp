@@ -6,7 +6,6 @@
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Bool.h"
 #include "Engine/EngineTypes.h"
-#include "Math/Vector.h"
 #include "AI/Navigation/NavigationTypes.h"
 #include "Navigation/PathFollowingComponent.h"
 #include "NavigationSystem.h"
@@ -26,26 +25,30 @@ AEnemyAIController::AEnemyAIController()
 
 	PerceptionComponent->ConfigureSense(*Sight);
 	PerceptionComponent->SetDominantSense(Sight->GetSenseImplementation());
-}
-
-void AEnemyAIController::BeginPlay()
-{
-	Super::BeginPlay();
-
 	PerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &AEnemyAIController::OnPerception);
 
 	TargetBallKey = TEXT("BestBall");
 	PatrolLocationKey = TEXT("RandomPoint");
 	PlayerSeenKey = TEXT("IsPlayerInSight");
-	UBlackboardData* BlackboardAsset = NewObject<UBlackboardData>();
+
+	UBlackboardData* BlackboardAsset = CreateDefaultSubobject<UBlackboardData>(TEXT("BlackboardDataAsset"));
+	Blackboard = CreateDefaultSubobject<UBlackboardComponent>(TEXT("Blackboard"));
+
 	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Object>(TargetBallKey);
 	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Vector>(PatrolLocationKey);
 	BlackboardAsset->UpdatePersistentKey<UBlackboardKeyType_Bool>(PlayerSeenKey);
+
 	UBlackboardComponent* BlackboardTemp = Blackboard.Get();
 	UseBlackboard(BlackboardAsset, BlackboardTemp);
 	Blackboard = BlackboardTemp;
 
+	UBlueprint* PlayerBlueprint = LoadObject<UBlueprint>(nullptr, TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.BP_ThirdPersonCharacter"));
+	PlayerClass = PlayerBlueprint->GeneratedClass;
+}
 
+void AEnemyAIController::BeginPlay()
+{
+	Super::BeginPlay();
 
 	GoToPlayer = MakeShared <FAIVState>(
 		[](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
@@ -172,6 +175,8 @@ void AEnemyAIController::BeginPlay()
 		}
 	);
 
+
+
 	SearchForPatrolPoint = MakeShared <FAIVState>(
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
@@ -201,7 +206,7 @@ void AEnemyAIController::BeginPlay()
 			{
 				return GoToPlayer;
 			}
-	
+
 			if (FVector::Distance(AIController->GetPawn()->GetActorLocation(), 
 				BlackboardComponent->GetValueAsVector(PatrolLocationKey)) <= 100.f)
 			{
@@ -218,7 +223,7 @@ void AEnemyAIController::BeginPlay()
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent)
 		{
 			FTimerHandle TimerHandle;
-			GetWorldTimerManager().SetTimer(TimerHandle, this, &AEnemyAIController::OnTimerElapsed, 2.f, false);
+			GetWorldTimerManager().SetTimer(TimerHandle, this, &AEnemyAIController::OnWaitTimerElapsed, 2.f, false);
 		},
 		nullptr,
 		[this](AAIController* AIController, UBlackboardComponent* BlackboardComponent, const float DeltaTime) -> TSharedPtr<FAIVState>
@@ -252,10 +257,7 @@ void AEnemyAIController::StartBehaviour()
 }
 
 void AEnemyAIController::OnPerception(AActor* InActor, FAIStimulus InStimulus)
-{
-	UBlueprint* PlayerBlueprint = LoadObject<UBlueprint>(nullptr, TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.BP_ThirdPersonCharacter"));
-	UClass* PlayerClass = PlayerBlueprint->GeneratedClass;
-	
+{	
 	if (InActor->IsA(PlayerClass))
 	{
 		Blackboard->SetValueAsBool(PlayerSeenKey, InStimulus.WasSuccessfullySensed());
@@ -266,7 +268,7 @@ void AEnemyAIController::OnPerception(AActor* InActor, FAIStimulus InStimulus)
 	}
 }
 
-void AEnemyAIController::OnTimerElapsed()
+void AEnemyAIController::OnWaitTimerElapsed()
 {	
 	if (CurrentState == Wait)
 	{

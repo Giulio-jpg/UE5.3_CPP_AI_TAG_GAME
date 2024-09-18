@@ -11,7 +11,6 @@
 #include "Perception/AIPerceptionTypes.h"
 #include "EnemyAIController.generated.h"
 
-
 struct FAIVState : public TSharedFromThis<FAIVState>
 {
 	FAIVState()
@@ -74,7 +73,6 @@ protected:
 	TFunction<void(AAIController*, UBlackboardComponent*)> Enter;
 	TFunction<void(AAIController*, UBlackboardComponent*)> Exit;
 	TFunction<TSharedPtr<FAIVState>(AAIController*, UBlackboardComponent*, const float)> Tick;
-
 };
 
 
@@ -88,12 +86,10 @@ class TAGGAME_API AEnemyAIController : public AAIController
 public:
 	AEnemyAIController();
 	void StartBehaviour();
+	void OnWaitTimerElapsed();
 
 	UFUNCTION()
 	void OnPerception(AActor* InActor, FAIStimulus InStimulus);
-
-	UFUNCTION()
-	void OnTimerElapsed();
 
 protected:
 	void BeginPlay() override;
@@ -114,4 +110,5 @@ protected:
 	FName PlayerSeenKey;
 
 	UAISenseConfig_Sight* Sight;
+	UClass* PlayerClass;
 };

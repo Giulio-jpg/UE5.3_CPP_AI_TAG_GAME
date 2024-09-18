@@ -24,7 +24,7 @@ void ATagGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ResetMatch();
+	ResetBalls();
 }
 
 void ATagGameGameMode::Tick(float DeltaTime)
@@ -39,11 +39,11 @@ void ATagGameGameMode::Tick(float DeltaTime)
 		}
 	}
 
-	ResetMatch();
+	ResetBalls();
 	ResetEnemiesBehaviour();
 }
 
-void ATagGameGameMode::ResetMatch()
+void ATagGameGameMode::ResetBalls()
 {
 	TargetPoints.Empty();
 	GameBalls.Empty();
@@ -73,15 +73,13 @@ void ATagGameGameMode::ResetMatch()
 	}
 }
 
-void ATagGameGameMode::ResetEnemiesBehaviour()
+void ATagGameGameMode::ResetEnemiesBehaviour() const
 {
 	for (TActorIterator<AEnemyAIController> It(GetWorld()); It; ++It)
 	{
 		It->StartBehaviour();
 	}
 }
-
-
 
 const TArray<ABall*>& ATagGameGameMode::GetBalls() const
 {

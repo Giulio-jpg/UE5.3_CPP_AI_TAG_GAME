@@ -21,8 +21,8 @@ public:
 	const TArray<ABall*>& GetBalls() const;
 
 protected:
-	void ResetMatch();
-	void ResetEnemiesBehaviour();
+	void ResetBalls();
+	void ResetEnemiesBehaviour() const;
 	TArray<ATargetPoint*> TargetPoints;
 	
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)

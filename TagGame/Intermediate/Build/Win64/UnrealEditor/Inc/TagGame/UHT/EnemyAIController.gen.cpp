@@ -17,13 +17,6 @@ void EmptyLinkFunctionForGeneratedCodeEnemyAIController() {}
 	TAGGAME_API UClass* Z_Construct_UClass_AEnemyAIController_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TagGame();
 // End Cross Module References
-	DEFINE_FUNCTION(AEnemyAIController::execOnTimerElapsed)
-	{
-		P_FINISH;
-		P_NATIVE_BEGIN;
-		P_THIS->OnTimerElapsed();
-		P_NATIVE_END;
-	}
 	DEFINE_FUNCTION(AEnemyAIController::execOnPerception)
 	{
 		P_GET_OBJECT(AActor,Z_Param_InActor);
@@ -38,7 +31,6 @@ void EmptyLinkFunctionForGeneratedCodeEnemyAIController() {}
 		UClass* Class = AEnemyAIController::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "OnPerception", &AEnemyAIController::execOnPerception },
-			{ "OnTimerElapsed", &AEnemyAIController::execOnTimerElapsed },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -80,28 +72,6 @@ void EmptyLinkFunctionForGeneratedCodeEnemyAIController() {}
 		}
 		return ReturnFunction;
 	}
-	struct Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FFunctionParams FuncParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "EnemyAIController.h" },
-	};
-#endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AEnemyAIController, nullptr, "OnTimerElapsed", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics::Function_MetaDataParams), Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics::Function_MetaDataParams) };
-	UFunction* Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed_Statics::FuncParams);
-		}
-		return ReturnFunction;
-	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(AEnemyAIController);
 	UClass* Z_Construct_UClass_AEnemyAIController_NoRegister()
 	{
@@ -124,7 +94,6 @@ void EmptyLinkFunctionForGeneratedCodeEnemyAIController() {}
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AEnemyAIController_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_AEnemyAIController_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_AEnemyAIController_OnPerception, "OnPerception" }, // 3875351070
-		{ &Z_Construct_UFunction_AEnemyAIController_OnTimerElapsed, "OnTimerElapsed" }, // 1383465600
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AEnemyAIController_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -171,9 +140,9 @@ void EmptyLinkFunctionForGeneratedCodeEnemyAIController() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_giuli_OneDrive_Documenti_GitHub_UE5_3_CPP_AI_TAG_GAME_TagGame_Source_TagGame_EnemyAIController_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AEnemyAIController, AEnemyAIController::StaticClass, TEXT("AEnemyAIController"), &Z_Registration_Info_UClass_AEnemyAIController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemyAIController), 702244651U) },
+		{ Z_Construct_UClass_AEnemyAIController, AEnemyAIController::StaticClass, TEXT("AEnemyAIController"), &Z_Registration_Info_UClass_AEnemyAIController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemyAIController), 3350169790U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_giuli_OneDrive_Documenti_GitHub_UE5_3_CPP_AI_TAG_GAME_TagGame_Source_TagGame_EnemyAIController_h_3003159517(TEXT("/Script/TagGame"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_giuli_OneDrive_Documenti_GitHub_UE5_3_CPP_AI_TAG_GAME_TagGame_Source_TagGame_EnemyAIController_h_1731467544(TEXT("/Script/TagGame"),
 		Z_CompiledInDeferFile_FID_Users_giuli_OneDrive_Documenti_GitHub_UE5_3_CPP_AI_TAG_GAME_TagGame_Source_TagGame_EnemyAIController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_giuli_OneDrive_Documenti_GitHub_UE5_3_CPP_AI_TAG_GAME_TagGame_Source_TagGame_EnemyAIController_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
